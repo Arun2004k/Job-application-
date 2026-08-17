@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Application</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f8;font-family:Arial,sans-serif;color:#172033}
+header{background:#173b73;color:white;padding:22px 18px;text-align:center}
+main{max-width:620px;margin:28px auto;padding:0 16px}.card{background:white;border-radius:16px;padding:26px;box-shadow:0 5px 22px #0001}
+h1{margin:0 0 7px;font-size:25px}h2{margin-top:0}.muted{color:#697386}
+button{border:0;border-radius:9px;padding:13px 20px;font-size:16px;font-weight:700;cursor:pointer}
+.primary{background:#1769e0;color:#fff;width:100%}.back{background:#eef2f7;color:#172033;margin-bottom:18px}
+.hidden{display:none}
+label{display:block;font-weight:600;margin:14px 0;font-size:14px}
+input,select,textarea{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #d6dce5;border-radius:8px;font-size:15px}
+.qr{width:210px;height:210px;object-fit:contain;border:1px solid #ddd;border-radius:10px;display:block;margin:18px auto}
+.price{font-size:25px;font-weight:800;text-align:center;margin:10px}
+.notice{background:#fff7df;border:1px solid #efd98b;padding:12px;border-radius:9px;font-size:13px}
+.success{text-align:center;color:#08783f;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <h1>Job Opportunities</h1>
+  <div>Apply online for available positions</div>
+</header>
+
+<main>
+<section id="home" class="card">
+  <h2>Apply for a Job</h2>
+  <p class="muted">Complete your application details to apply.</p>
+  <button class="primary" onclick="show('form')">Apply Job</button>
+</section>
+
+<section id="form" class="card hidden">
+  <button class="back" onclick="show('home')">← Back</button>
+  <h2>Application Details</h2>
+  <form id="jobForm">
+    <label>Full Name *<input required name="name"></label>
+    <label>Mobile Number *<input required name="phone" type="tel"></label>
+    <label>Email<input name="email" type="email"></label>
+    <label>City / Location<input name="city"></label>
+    <label>Qualification *
+      <select required name="qualification">
+        <option value="">Select</option><option>10th</option><option>12th / Higher Secondary</option>
+        <option>Graduate</option><option>Post Graduate</option><option>Other</option>
+      </select>
+    </label>
+    <label>Experience *
+      <select required name="experience">
+        <option value="">Select</option><option>Fresher</option><option>Less than 1 year</option>
+        <option>1–3 years</option><option>3–5 years</option><option>5+ years</option>
+      </select>
+    </label>
+    <label>Preferred Job Role<input required name="role" placeholder="e.g. Calling / Chat Support"></label>
+    <label>Expected Salary<input name="salary" placeholder="e.g. ₹15,000/month"></label>
+    <label>Skills<textarea name="skills" rows="3"></textarea></label>
+    <label>Additional Information<textarea name="extra" rows="3"></textarea></label>
+    <div class="notice">Application processing fee: <b>₹5</b>. This fee is shown before submission. It does not guarantee selection or employment.</div>
+    <br>
+    <button class="primary" type="submit">Continue to Payment</button>
+  </form>
+</section>
+
+<section id="payment" class="card hidden">
+  <h2>Application Fee</h2>
+  <p class="muted">Your application details have been filled in. Pay the stated processing fee to continue.</p>
+  <div class="price">₹5</div>
+  <div class="notice">Replace the QR below with your official payment QR before publishing the site.</div>
+  <img class="qr" src="qr-placeholder.svg" alt="Payment QR placeholder">
+  <p style="text-align:center">Scan the QR and pay <b>₹5</b>.</p>
+  <label>Payment Reference / UTR
+    <input id="utr" placeholder="Enter payment reference after payment">
+  </label>
+  <button class="primary" onclick="submitApplication()">Submit Application</button>
+  <p id="result"></p>
+</section>
+</main>
+
+<script>
+let application={};
+function show(id){
+  ["home","form","payment"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));
+}
+document.getElementById("jobForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  application=Object.fromEntries(new FormData(e.target).entries());
+  show("payment");
+});
+function submitApplication(){
+  const utr=document.getElementById("utr").value.trim();
+  if(!utr){alert("Please enter the payment reference / UTR.");return}
+  console.log("Application:",application,"UTR:",utr);
+  document.getElementById("result").className="success";
+  document.getElementById("result").textContent="Application submitted successfully.";
+}
+</script>
+</body>
+</html>

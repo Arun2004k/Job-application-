@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="210" viewBox="0 0 210 210">
+<rect width="210" height="210" fill="white"/><rect x="8" y="8" width="194" height="194" fill="none" stroke="#222" stroke-width="3"/>
+<text x="105" y="96" text-anchor="middle" font-family="Arial" font-size="15">YOUR QR</text>
+<text x="105" y="118" text-anchor="middle" font-family="Arial" font-size="12">REPLACE HERE</text>
+</svg>
